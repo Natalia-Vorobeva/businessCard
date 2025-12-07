@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.scss';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-css';
 import {
 	FiMail,
 	FiPhone,
@@ -194,6 +199,10 @@ root.render(
 );`
 		}
 	]
+
+	useEffect(() => {
+		Prism.highlightAll();
+	}, [currentCodeIndex])
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(codeFiles[currentCodeIndex].content);
@@ -1104,9 +1113,14 @@ const isAvailable = true;`}</pre>
 									{copied ? 'Скопировано!' : 'Скопировать код'}
 								</button>
 							</div>
-							<pre className="code-content" dangerouslySetInnerHTML={{
+							<pre className="code-content">
+								<code className={`language-${codeFiles[currentCodeIndex].language}`}>
+									{codeFiles[currentCodeIndex].content}
+								</code>
+							</pre>
+							{/* <pre className="code-content" dangerouslySetInnerHTML={{
 								__html: highlightCode(codeFiles[currentCodeIndex].content, codeFiles[currentCodeIndex].language)
-							}} />
+							}} /> */}
 							{/* <pre className="code-content">
 								<code>{codeFiles[currentCodeIndex].content}</code>
 							</pre> */}
