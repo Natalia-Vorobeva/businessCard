@@ -200,6 +200,16 @@ root.render(
 		}
 	]
 
+	window.addEventListener('resize', () => {
+		console.log('Ширина окна:', window.innerWidth);
+		console.log('Ширина документа:', document.documentElement.scrollWidth);
+
+		// Если ширина документа больше окна - есть проблема
+		if (document.documentElement.scrollWidth > window.innerWidth) {
+			console.warn('⚠️ ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ! Верстка сломана');
+		}
+	});
+
 	useLayoutEffect(() => {
 		if (isCodeModalOpen) {
 			const codeElements = document.querySelectorAll('.code-content code')
@@ -599,21 +609,22 @@ ${formData.message}
 								</div>
 								<div className="code-content">
 
-									<pre>{`// Мой стек технологий
+									<pre>{`
+// Мой стек технологий
 const techStack = {
-  frontend: ["React", "Node JS", "JavaScript"],
-  styling: ["CSS3", "SCSS", "Tailwind"],
-  tools: ["Git", "Vite", "Figma"],
-  backend: ["Express", "MongoDB", "SQLite"]
+frontend: ["React", "Node JS", "JavaScript"],
+styling: ["CSS3", "SCSS", "Tailwind"],
+tools: ["Git", "Vite", "Figma"],
+backend: ["Express", "MongoDB", "SQLite"]
 }
 
 // Доступен для вашего проекта
 function startProject(requirements) {
-  return develop({
-    deadline: "в срок",
-    quality: "высокая",
-    communication: "прозрачная"
-  })
+return develop({
+deadline: "в срок",
+quality: "высокая",
+communication: "прозрачная"
+})
 }
 
 // Готов к сотрудничеству!

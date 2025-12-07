@@ -359,6 +359,7 @@ $gray: #6c757d;
     }
 
     .hero-image {
+			border: 1px solid #ebe7e7;	
       .code-window {
         background: #1a1f35;
         border-radius: 20px;
@@ -401,6 +402,11 @@ $gray: #6c757d;
         .code-content {
           padding: 2.5rem;
           overflow-x: auto;
+
+					@media (max-width: 510px) {
+              padding-right: .5rem;
+              padding-left: 1.5rem;
+            }
           
           pre {
             color: #81e6d9;
@@ -1915,3 +1921,29 @@ $gray: #6c757d;
   pointer-events: none;
 }
 
+@media (min-width: 320px) and (max-width: 450px) {
+    .code-content {
+        /* Примеры стилей, которые можно настроить под ваш дизайн: */
+        padding: 15px 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+        overflow-x: auto;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Дополнительные стили для содержимого внутри code-content */
+    .code-content pre {
+        margin: 0;
+        padding: 10px;
+        white-space: pre-wrap; /* Перенос длинных строк */
+        word-wrap: break-word;
+    }
+    
+    .code-content code {
+        font-size: 13px;
+        padding: 2px 4px;
+    }
+}
