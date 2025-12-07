@@ -57,14 +57,14 @@ function App() {
 		name: '',
 		email: '',
 		message: ''
-	});
+	})
 
 	// Состояние капчи
 	const [captcha, setCaptcha] = useState({
 		question: '',
 		answer: 0,
 		userAnswer: ''
-	});
+	})
 
 	// Состояние отправки формы
 	const [formStatus, setFormStatus] = useState({
@@ -76,7 +76,7 @@ function App() {
 	const isFormValid = formData.name && formData.email && formData.message
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const [activeSection, setActiveSection] = useState('home')
-	const [isVisible, setIsVisible] = useState(false);
+	const [isVisible, setIsVisible] = useState(false)
 	const [formStartTime] = useState(Date.now())
 	const honeypotRef = useRef(null)
 	const menuRef = useRef(null)
@@ -88,7 +88,7 @@ function App() {
 		hasTelegramChatId: !!CONFIG.TELEGRAM_CHAT_ID,
 		isDemoMode: CONFIG.DEMO_MODE,
 		envLoaded: true
-	});
+	})
 
 	// Портфолио проекты
 	const portfolioItems = [
@@ -99,7 +99,7 @@ function App() {
 			icon: <FaTicketAlt />,
 			tech: ["ReactJS", "TailwindCSS", "vite", "LocalStorage"],
 			link: "#",
-			demo: "#"
+			demo: "https://natalia-vorobeva.github.io/movie-ticket-system/"
 		},
 		{
 			id: 2,
@@ -121,9 +121,9 @@ function App() {
 		}
 	]
 
-	const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
-	const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
-	const [copied, setCopied] = useState(false);
+	const [isCodeModalOpen, setIsCodeModalOpen] = useState(false)
+	const [currentCodeIndex, setCurrentCodeIndex] = useState(0)
+	const [copied, setCopied] = useState(false)
 
 
 	// Пример данных с кодом (добавьте свои реальные файлы)
@@ -133,10 +133,10 @@ function App() {
 			name: 'App.jsx',
 			language: 'jsx',
 			content: `import React, { useState } from 'react';
-import './App.css';
+import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   return (
     <div className="App">
@@ -220,17 +220,16 @@ root.render(
 	const prevCode = () => {
 		setCurrentCodeIndex((prev) =>
 			prev === 0 ? codeFiles.length - 1 : prev - 1
-		);
-	};
+		)
+	}
 
 	const openCodeModal = () => {
-		console.log('%cDATA', 'color: purple', 'click')
 		setIsCodeModalOpen(true)
-		setCurrentCodeIndex(0);
-	};
+		setCurrentCodeIndex(0)
+	}
 
 	const closeCodeModal = () => {
-		setIsCodeModalOpen(false);
+		setIsCodeModalOpen(false)
 	}
 
 	// Генерируем капчу при загрузке компонента
@@ -241,76 +240,39 @@ root.render(
 	useEffect(() => {
 		const handleClickOutside = (event) => {
 			if (menuRef.current && !menuRef.current.contains(event.target)) {
-				setIsMenuOpen(false);
+				setIsMenuOpen(false)
 			}
-		};
-		document.addEventListener('mousedown', handleClickOutside);
-		return () => document.removeEventListener('mousedown', handleClickOutside);
-	}, []);
-	useEffect(() => {
-		const handleScroll = () => {
-			const sections = ['home', 'portfolio', 'about', 'contact'];
-			const current = sections.find(section => {
-				const element = document.getElementById(section);
-				if (element) {
-					const rect = element.getBoundingClientRect();
-					return rect.top <= 100 && rect.bottom >= 100;
-				}
-				return false;
-			});
-			if (current) setActiveSection(current);
-
-			// Показ/скрытие кнопки "Наверх"
-			setIsVisible(window.pageYOffset > 300);
-		};
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
-
-	// Логирование конфигурации (только в development)
-	useEffect(() => {
-		if (CONFIG.NODE_ENV === 'development') {
-			console.log('Конфигурация:', {
-				telegram: {
-					hasToken: !!CONFIG.TELEGRAM_BOT_TOKEN,
-					hasChatId: !!CONFIG.TELEGRAM_CHAT_ID,
-					demoMode: CONFIG.DEMO_MODE
-				},
-				env: {
-					NODE_ENV: CONFIG.NODE_ENV,
-					DEMO_MODE: CONFIG.DEMO_MODE
-				}
-			});
 		}
-	}, []);
-
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [])
 
 	// Генерация математической капчи
 	const generateCaptcha = () => {
-		const operators = ['+', '-', '×'];
-		const operator = operators[Math.floor(Math.random() * operators.length)];
-		let num1, num2, answer;
+		const operators = ['+', '-', '×']
+		const operator = operators[Math.floor(Math.random() * operators.length)]
+		let num1, num2, answer
 
 		switch (operator) {
 			case '+':
-				num1 = Math.floor(Math.random() * 10) + 1;
-				num2 = Math.floor(Math.random() * 10) + 1;
-				answer = num1 + num2;
-				break;
+				num1 = Math.floor(Math.random() * 10) + 1
+				num2 = Math.floor(Math.random() * 10) + 1
+				answer = num1 + num2
+				break
 			case '-':
-				num1 = Math.floor(Math.random() * 10) + 5;
-				num2 = Math.floor(Math.random() * 5) + 1;
-				answer = num1 - num2;
-				break;
+				num1 = Math.floor(Math.random() * 10) + 5
+				num2 = Math.floor(Math.random() * 5) + 1
+				answer = num1 - num2
+				break
 			case '×':
-				num1 = Math.floor(Math.random() * 5) + 1;
-				num2 = Math.floor(Math.random() * 5) + 1;
-				answer = num1 * num2;
-				break;
+				num1 = Math.floor(Math.random() * 5) + 1
+				num2 = Math.floor(Math.random() * 5) + 1
+				answer = num1 * num2
+				break
 			default:
-				num1 = 2;
-				num2 = 3;
-				answer = 5;
+				num1 = 2
+				num2 = 3
+				answer = 5
 		}
 
 		setCaptcha({
@@ -318,15 +280,6 @@ root.render(
 			answer: answer,
 			userAnswer: ''
 		})
-	}
-
-	// Обработчики изменений
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setFormData(prev => ({
-			...prev,
-			[name]: value
-		}));
 	}
 
 	const handleCaptchaChange = (e) => {
@@ -342,34 +295,34 @@ root.render(
 		return re.test(email)
 	}
 
-	const [errors, setErrors] = useState({});
+	const [errors, setErrors] = useState({})
 
 	const validateForm = () => {
-		const newErrors = {};
+		const newErrors = {}
 
 		// Имя
 		if (!formData.name.trim()) {
-			newErrors.name = 'Имя обязательно';
+			newErrors.name = 'Имя обязательно'
 		} else if (formData.name.trim().length < 2) {
-			newErrors.name = 'Имя слишком короткое';
+			newErrors.name = 'Имя слишком короткое'
 		}
 
 		// Email
 		if (!formData.email.trim()) {
-			newErrors.email = 'Email обязателен';
+			newErrors.email = 'Email обязателен'
 		} else if (!validateEmail(formData.email)) {
-			newErrors.email = 'Введите корректный email';
+			newErrors.email = 'Введите корректный email'
 		}
 
 		// Сообщение
 		if (!formData.message.trim()) {
-			newErrors.message = 'Сообщение обязательно';
+			newErrors.message = 'Сообщение обязательно'
 		} else if (formData.message.trim().length < 10) {
-			newErrors.message = 'Сообщение слишком короткое (минимум 10 символов)';
+			newErrors.message = 'Сообщение слишком короткое (минимум 10 символов)'
 		}
 
-		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
+		setErrors(newErrors)
+		return Object.keys(newErrors).length === 0
 	}
 	// Отправка формы
 	const handleSubmit = async (e) => {
@@ -380,7 +333,7 @@ root.render(
 		}
 
 		// Сброс статуса
-		setFormStatus({ loading: false, success: false, error: false, message: '' });
+		setFormStatus({ loading: false, success: false, error: false, message: '' })
 
 		// Проверка honeypot поля
 		if (honeypotRef.current && honeypotRef.current.value) {
@@ -389,35 +342,35 @@ root.render(
 				success: false,
 				error: true,
 				message: 'Обнаружена подозрительная активность'
-			});
-			generateCaptcha();
-			return;
+			})
+			generateCaptcha()
+			return
 		}
 
 		// Проверка капчи
-		const userAnswer = parseInt(captcha.userAnswer.trim());
+		const userAnswer = parseInt(captcha.userAnswer.trim())
 		if (isNaN(userAnswer) || userAnswer !== captcha.answer) {
 			setFormStatus({
 				loading: false,
 				success: false,
 				error: true,
 				message: '❌ Неверный ответ на капчу. Попробуйте еще раз.'
-			});
-			generateCaptcha();
-			return;
+			})
+			generateCaptcha()
+			return
 		}
 
 		// Проверка времени заполнения
-		const formFillTime = Date.now() - formStartTime;
+		const formFillTime = Date.now() - formStartTime
 		if (formFillTime < 2000) {
 			setFormStatus({
 				loading: false,
 				success: false,
 				error: true,
 				message: '⚠️ Форма заполнена слишком быстро'
-			});
-			generateCaptcha();
-			return;
+			})
+			generateCaptcha()
+			return
 		}
 
 		// Валидация email
@@ -427,8 +380,8 @@ root.render(
 				success: false,
 				error: true,
 				message: '❌ Введите корректный email'
-			});
-			return;
+			})
+			return
 		}
 
 		// Проверка длины сообщения
@@ -438,8 +391,8 @@ root.render(
 				success: false,
 				error: true,
 				message: '❌ Сообщение слишком короткое (минимум 10 символов)'
-			});
-			return;
+			})
+			return
 		}
 
 		// Демо-режим (если нет токена)
@@ -449,7 +402,7 @@ root.render(
 				success: false,
 				error: false,
 				message: '⏳ Демо-режим: имитация отправки...'
-			});
+			})
 
 			setTimeout(() => {
 				setFormStatus({
@@ -457,25 +410,24 @@ root.render(
 					success: true,
 					error: false,
 					message: `✅ Демо: Форма работает! Настройте Telegram бота в .env.local файле.\n\nТокен бота: ${CONFIG.TELEGRAM_BOT_TOKEN ? '✓ Установлен' : '✗ Отсутствует'}\nChat ID: ${CONFIG.TELEGRAM_CHAT_ID ? '✓ Установлен' : '✗ Отсутствует'}`
-				});
+				})
 
-				setFormData({ name: '', email: '', message: '' });
-				generateCaptcha();
+				setFormData({ name: '', email: '', message: '' })
+				generateCaptcha()
 
 				setTimeout(() => {
-					setFormStatus({ loading: false, success: false, error: false, message: '' });
-				}, 8000);
-			}, 1500);
-			return;
+					setFormStatus({ loading: false, success: false, error: false, message: '' })
+				}, 8000)
+			}, 1500)
+			return
 		}
 
-		// Режим с Telegram ботом
 		setFormStatus({
 			loading: true,
 			success: false,
 			error: false,
 			message: '⏳ Отправка в Telegram...'
-		});
+		})
 
 		try {
 			const messageText = `
@@ -490,7 +442,7 @@ ${formData.message}
 🕐 ${new Date().toLocaleString('ru-RU')}
 🌐 ${window.location.hostname}
 ✅ Капча пройдена
-      `;
+      `
 
 			const response = await fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`, {
 				method: 'POST',
@@ -508,10 +460,9 @@ ${formData.message}
 						]]
 					}
 				})
-			});
+			})
 
 			const result = await response.json()
-			console.log('%cDATA', 'color: purple', result, 'result')
 
 			if (result.ok) {
 				setFormStatus({
@@ -519,32 +470,32 @@ ${formData.message}
 					success: true,
 					error: false,
 					message: '✅ Заявка отправлена в Telegram! Я свяжусь с вами в ближайшее время.'
-				});
+				})
 
 				// Очистка формы
-				setFormData({ name: '', email: '', message: '' });
-				generateCaptcha();
+				setFormData({ name: '', email: '', message: '' })
+				generateCaptcha()
 
 				// Сброс статуса через 5 секунд
 				setTimeout(() => {
-					setFormStatus({ loading: false, success: false, error: false, message: '' });
-				}, 5000);
+					setFormStatus({ loading: false, success: false, error: false, message: '' })
+				}, 5000)
 			} else {
-				throw new Error(result.description || 'Ошибка Telegram API');
+				throw new Error(result.description || 'Ошибка Telegram API')
 			}
 		} catch (error) {
-			console.error('Ошибка отправки в Telegram:', error);
+			console.error('Ошибка отправки в Telegram:', error)
 
-			let errorMessage = '❌ Ошибка отправки. ';
+			let errorMessage = '❌ Ошибка отправки. '
 
 			if (error.message.includes('chat not found')) {
-				errorMessage += 'Chat ID неверный. Проверьте .env.local файл.';
+				errorMessage += 'Chat ID неверный. Проверьте .env.local файл.'
 			} else if (error.message.includes('Not Found')) {
-				errorMessage += 'Токен бота неверный. Проверьте .env.local файл.';
+				errorMessage += 'Токен бота неверный. Проверьте .env.local файл.'
 			} else if (error.message.includes('Network Error')) {
-				errorMessage += 'Проблемы с сетью. Попробуйте использовать VPN.';
+				errorMessage += 'Проблемы с сетью. Попробуйте использовать VPN.'
 			} else {
-				errorMessage += 'Попробуйте еще раз или свяжитесь другим способом.';
+				errorMessage += 'Попробуйте еще раз или свяжитесь другим способом.'
 			}
 
 			setFormStatus({
@@ -552,14 +503,14 @@ ${formData.message}
 				success: false,
 				error: true,
 				message: errorMessage
-			});
-			generateCaptcha();
+			})
+			generateCaptcha()
 		}
 	}
-	
+
 	return (
 		<div className={`app ${isCodeModalOpen ? "no-scroll" : ""}`}>
-			{/* Хедер */}
+
 			<header className="header">
 				<div className="container">
 					<div className="header-left">
@@ -593,7 +544,6 @@ ${formData.message}
 				</div>
 			</header>
 
-			{/* Герой секция */}
 			<section id="home" className="hero">
 				<div className="container">
 					<div className="hero-content">
@@ -612,23 +562,23 @@ ${formData.message}
 									<p className="main-title">Frontend Developer</p>
 									<div className="title-tags">
 										<span className="tag">React</span>
-										<span className="tag">TypeScript</span>
+										<span className="tag">JavaScript</span>
 										<span className="tag">SCSS</span>
 										<span className="tag">Node.js</span>
+										<span className="tag">Tailwindcss</span>
 									</div>
 								</div>
 							</div>
 
 							<div className="hero-text">
 								<h2>Создаю современные и эффективные веб-приложения</h2>
-								<p>Специализируюсь на разработке пользовательских интерфейсов с использованием React, TypeScript и современных подходов к фронтенд-разработке. Каждый проект — это решение конкретной бизнес-задачи.</p>
+								<p>Специализируюсь на разработке пользовательских интерфейсов с использованием React, JavaScript и современных подходов к фронтенд-разработке. Каждый проект — это решение конкретной бизнес-задачи.</p>
 								<div className="tech-stack">
 									<span className="tech-badge"><FaReact /> React</span>
 									<span className="tech-badge"><FaNodeJs /> Node.js</span>
 									<span className="tech-badge"><FaDatabase /> Databases</span>
 								</div>
 								<div className="hero-buttons">
-									{/* <a href="#portfolio" className="cta-button secondary">Мои работы</a> */}
 									<a href="#contact" className="cta-button primary">Обсудить проект</a>
 								</div>
 							</div>
@@ -646,11 +596,11 @@ ${formData.message}
 
 									<pre>{`// Мой стек технологий
 const techStack = {
-  frontend: ["React", "Vue", "TypeScript"],
-  styling: ["SCSS", "Tailwind", "Styled Components"],
-  tools: ["Git", "Webpack", "Figma"],
-  backend: ["Node.js", "Express", "MongoDB"]
-};
+  frontend: ["React", "Node JS", "JavaScript"],
+  styling: ["CSS3", "SCSS", "Tailwind"],
+  tools: ["Git", "Vite", "Figma"],
+  backend: ["Express", "MongoDB", "SQLite"]
+}
 
 // Доступен для вашего проекта
 function startProject(requirements) {
@@ -658,7 +608,7 @@ function startProject(requirements) {
     deadline: "в срок",
     quality: "высокая",
     communication: "прозрачная"
-  });
+  })
 }
 
 // Готов к сотрудничеству!
@@ -670,7 +620,6 @@ const isAvailable = true;`}</pre>
 				</div>
 			</section>
 
-			{/* Портфолио */}
 			<section id="portfolio" className="portfolio">
 				<div className="container">
 					<h2 onClick={() => openCodeModal()} className="section-title">Мои проекты</h2>
@@ -691,7 +640,8 @@ const isAvailable = true;`}</pre>
 									<a href={item.link} className="card-link">
 										Код <FiExternalLink />
 									</a>
-									<a href={item.demo} className="card-demo">
+
+									<a href={item.demo} target="_blank" className="card-demo">
 										Демо →
 									</a>
 								</div>
@@ -701,7 +651,6 @@ const isAvailable = true;`}</pre>
 				</div>
 			</section>
 
-			{/* Обо мне */}
 			<section id="about" className="about">
 				<div className="container">
 					<div className="about-content">
@@ -747,7 +696,6 @@ const isAvailable = true;`}</pre>
 				</div>
 			</section>
 
-			{/* Контакты */}
 			<section id="contact" className="contact">
 				<div className="container">
 					<h2 className="section-title">Свяжитесь со мной</h2>
@@ -789,14 +737,6 @@ const isAvailable = true;`}</pre>
 
 							<div className="contact-block">
 								<h3>Социальные сети</h3>
-								{/* <a href="https://github.com" target="_blank" rel="noreferrer" className="contact-item">
-									<FiGithub />
-									<div>
-										<span className="contact-label">GitHub</span>
-										<span className="contact-value">Мои проекты и код</span>
-									</div>
-								</a>	
-														 */}
 								<a href="https://t.me/vorobjevaa" target="_blank" rel="noopener noreferrer" className="contact-item">
 									<FiSend />
 									<div>
@@ -806,7 +746,6 @@ const isAvailable = true;`}</pre>
 									</div>
 								</a>
 							</div>
-
 							<div className="working-hours">
 								<h3>Время работы</h3>
 								<p>Пн-Пт: 10:00 - 19:00</p>
@@ -816,7 +755,6 @@ const isAvailable = true;`}</pre>
 						</div>
 
 						<div className="contact-form-container">
-
 
 							<form className="contact-form" onSubmit={handleSubmit} ref={formRef} noValidate>
 								{/* Honeypot поле для ботов */}
@@ -830,8 +768,6 @@ const isAvailable = true;`}</pre>
 										ref={honeypotRef}
 									/>
 								</div>
-
-								{/* Основные поля формы */}
 								<div className="form-group">
 									<label htmlFor="name">Имя *</label>
 									<input
@@ -873,7 +809,6 @@ const isAvailable = true;`}</pre>
 									{errors.message && <span className="validation-error">{errors.message}</span>}
 								</div>
 
-								{/* Капча */}
 								<div className="form-group captcha-section">
 									<div className="captcha-header">
 										<label>Подтвердите, что вы не робот *</label>
@@ -965,7 +900,6 @@ const isAvailable = true;`}</pre>
 				</div>
 			</section>
 
-			{/* Футер */}
 			<footer className="footer">
 				<div className="container">
 					<div className="footer-content">
@@ -1000,15 +934,7 @@ const isAvailable = true;`}</pre>
 					</div>
 				</div>
 			</footer>
-			{/* Кнопка "Наверх" */}
-			<button
-				className={`scroll-to-top ${isVisible ? 'visible' : ''}`}
-				onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-				aria-label="Наверх"
-			>
-				↑
-			</button>
-			{/* Добавьте этот код в конец вашего компонента */}
+
 			{isCodeModalOpen && (
 				<div className="code-modal-overlay" onClick={closeCodeModal}>
 					<div className="code-modal" onClick={(e) => e.stopPropagation()}>

@@ -1904,3 +1904,14 @@ $gray: #6c757d;
   background: rgba($success, 0.3);
 }
 
+.portfolio-card .card-buttons a {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto !important;
+}
+
+.portfolio-card::before,
+.portfolio-card::after {
+  pointer-events: none;
+}
+
