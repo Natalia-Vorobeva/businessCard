@@ -556,44 +556,9 @@ ${formData.message}
 			generateCaptcha();
 		}
 	}
-
-	// Добавьте эту функцию для базовой подсветки
-	const highlightCode = (code, language) => {
-		if (language === 'jsx' || language === 'javascript') {
-			return code
-				.replace(/(import|from|export|default|function|const|let|var|return|if|else|for|while)\b/g, '<span class="keyword">$1</span>')
-				.replace(/('.*?'|".*?"|`.*?`)/g, '<span class="string">$1</span>')
-				.replace(/\/\/.*/g, '<span class="comment">$&</span>')
-				.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>')
-				.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
-		} else if (language === 'css') {
-			return code
-				.replace(/(\.|#)[a-zA-Z][\w-]*/g, '<span class="selector">$&</span>')
-				.replace(/(:[a-z-]+)/g, '<span class="pseudo">$1</span>')
-				.replace(/([a-z-]+):/g, '<span class="property">$1</span>:')
-				.replace(/#[0-9a-f]{3,6}|rgb[a]?\([^)]+\)/gi, '<span class="color">$&</span>');
-		}
-		return code;
-	};
-
-	// Обновите отображение кода:
-
-
-
-	const sendAutoReply = async (clientChatId) => {
-		await fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				chat_id: clientChatId,
-				text: `✅ Спасибо за заявку! Я получил ваше сообщение и отвечу в течение 24 часов.\n\nС уважением,\nНаталья Воробьева\nFrontend Developer`,
-				parse_mode: 'Markdown'
-			})
-		});
-	};
-	console.log('%cDATA', 'color: purple', CONFIG.TELEGRAM_BOT_URL)
+	
 	return (
-		<div className="app">
+		<div className={`app ${isCodeModalOpen ? "no-scroll" : ""}`}>
 			{/* Хедер */}
 			<header className="header">
 				<div className="container">

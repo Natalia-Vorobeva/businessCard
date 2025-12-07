@@ -26,6 +26,13 @@ $gray: #6c757d;
   padding: 0 20px;
 }
 
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1896,3 +1903,4 @@ $gray: #6c757d;
   animation: copyPulse 0.3s ease;
   background: rgba($success, 0.3);
 }
+
