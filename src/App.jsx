@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import './App.scss';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
@@ -200,22 +200,27 @@ root.render(
 		}
 	]
 
-	useEffect(() => {
-		Prism.highlightAll();
-	}, [currentCodeIndex])
+	useLayoutEffect(() => {
+		if (isCodeModalOpen) {
+			const codeElements = document.querySelectorAll('.code-content code')
+			codeElements.forEach((element) => {
+				Prism.highlightElement(element)
+			});
+		}
+	}, [isCodeModalOpen, currentCodeIndex])
 
 	const handleCopy = () => {
-		navigator.clipboard.writeText(codeFiles[currentCodeIndex].content);
-		setCopied(true);
-		setTimeout(() => setCopied(false), 2000);
-	};
+		navigator.clipboard.writeText(codeFiles[currentCodeIndex].content)
+		setCopied(true)
+		setTimeout(() => setCopied(false), 2000)
+	}
 
 	// Функции для навигации
 	const nextCode = () => {
 		setCurrentCodeIndex((prev) =>
 			prev === codeFiles.length - 1 ? 0 : prev + 1
-		);
-	};
+		)
+	}
 
 	const prevCode = () => {
 		setCurrentCodeIndex((prev) =>
