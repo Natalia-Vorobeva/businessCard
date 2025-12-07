@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+{/* username vorobeva-frontend */}
+			{/* bot VorobevaFrontendBot */}
+			 {/* https://api.telegram.org/bot8555990125:AAGi08-9U3QElHb_X1QLfeRNFwKbXB6nozk/getUpdates */}
+			 {/* id:2051700518 */}
+{/* 8555990125:AAGi08-9U3QElHb_X1QLfeRNFwKbXB6nozk */}
