@@ -13,7 +13,7 @@
 		"preview": "vite preview",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d dist",		
-		"vercel-deploy": "vercel --name business-card --prod"
+		"vercel-deploy": "vercel --name business-card"
 	},
 	"dependencies": {
 		"@emailjs/browser": "^4.4.1",
