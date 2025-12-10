@@ -5,6 +5,7 @@ import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-css';
+import { portfolioItems } from './constants/portfolioItems.jsx';
 import {
 	FiMail,
 	FiPhone,
@@ -25,9 +26,9 @@ import {
 	FaReact,
 	FaNodeJs,
 	FaDatabase,
-	FaTicketAlt,
-	FaCheckCircle,
-	FaComments,
+	// FaTicketAlt,
+	// FaCheckCircle,
+	// FaComments,
 	FaRobot
 } from 'react-icons/fa';
 import foto from '../public/images/Fotoram.io.jpg'
@@ -51,6 +52,8 @@ function App() {
 			? `https://t.me/${import.meta.env.VITE_TELEGRAM_BOT_TOKEN.split(':')[0]}`
 			: import.meta.env.VITE_BOT_URL,
 	}
+
+	const [codeFiles, setCodeFiles] = useState(null)
 
 	// Состояние формы
 	const [formData, setFormData] = useState({
@@ -90,125 +93,10 @@ function App() {
 		envLoaded: true
 	})
 
-	// Портфолио проекты
-	const portfolioItems = [
-		{
-			id: 1,
-			title: "Билетная касса",
-			description: "Система бронирования билетов с выбором мест, онлайн-оплатой и админ-панелью",
-			icon: <FaTicketAlt />,
-			tech: ["ReactJS", "TailwindCSS", "vite", "LocalStorage"],
-			link: "#",
-			demo: "https://natalia-vorobeva.github.io/movie-ticket-system/"
-		},
-		{
-			id: 2,
-			title: "ToDo List",
-			description: "Продуктивное приложение с категориями, тегами, дедлайнами и аналитикой",
-			icon: <FaCheckCircle />,
-			tech: ["ReactJS", "JWT", "Express", "Tailwindcss", "SQLite3"],
-			link: "#",
-			demo: "#"
-		},
-		{
-			id: 3,
-			title: "Мессенджер",
-			description: "Чат-приложение в реальном времени с комнатами, файлами и видеозвонками",
-			icon: <FaComments />,
-			tech: ["ReactJS", "Node.js", "Vite", "PostgreSQL"],
-			link: "#",
-			demo: "#"
-		}
-	]
-
 	const [isCodeModalOpen, setIsCodeModalOpen] = useState(false)
 	const [currentCodeIndex, setCurrentCodeIndex] = useState(0)
 	const [copied, setCopied] = useState(false)
 
-
-	// Пример данных с кодом (добавьте свои реальные файлы)
-	const codeFiles = [
-		{
-			id: 1,
-			name: 'App.jsx',
-			language: 'jsx',
-			content: `import React, { useState } from 'react';
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <h1>Мое приложение</h1>
-      <p>Количество: {count}</p>
-      <button onClick={() => setCount(count + 1)}>
-        Увеличить
-      </button>
-    </div>
-  );
-}
-
-export default App;`
-		},
-		{
-			id: 2,
-			name: 'styles.css',
-			language: 'css',
-			content: `/* Основные стили */
-.app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 100px 0;
-}
-
-/* Кнопки */
-.button {
-  background: #4361ee;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  transition: all 0.3s;
-}
-
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
-}`
-		},
-		{
-			id: 3,
-			name: 'index.js',
-			language: 'javascript',
-			content: `import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);`
-		}
-	]
-
-	window.addEventListener('resize', () => {
-		console.log('Ширина окна:', window.innerWidth);
-		console.log('Ширина документа:', document.documentElement.scrollWidth);
-
-		// Если ширина документа больше окна - есть проблема
-		if (document.documentElement.scrollWidth > window.innerWidth) {
-			console.warn('⚠️ ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ! Верстка сломана');
-		}
-	});
 
 	useLayoutEffect(() => {
 		if (isCodeModalOpen) {
@@ -236,11 +124,11 @@ root.render(
 		setCurrentCodeIndex((prev) =>
 			prev === 0 ? codeFiles.length - 1 : prev - 1
 		)
-	}
-
-	const openCodeModal = () => {
+	}	
+	const openCodeModal = (index) => {
 		setIsCodeModalOpen(true)
 		setCurrentCodeIndex(0)
+		setCodeFiles(portfolioItems[index].code)
 	}
 
 	const closeCodeModal = () => {
@@ -642,7 +530,7 @@ const isAvailable = true;`}</pre>
 					<p className="section-subtitle">Реализованные решения, демонстрирующие мой опыт и навыки</p>
 
 					<div className="portfolio-grid">
-						{portfolioItems.map(item => (
+						{portfolioItems.map((item, index) => (
 							<div key={item.id} className="portfolio-card">
 								<div className="card-icon">{item.icon}</div>
 								<h3>{item.title}</h3>
@@ -652,10 +540,10 @@ const isAvailable = true;`}</pre>
 										<span key={index} className="tech-tag">{tech}</span>
 									))}
 								</div>
-								<div className="card-buttons">
-									<a href={item.link} className="card-link">
+								<div onClick={() => openCodeModal(index)} className="card-buttons">
+									{/* <a href={item.link} className="card-link">
 										Код <FiExternalLink />
-									</a>
+									</a> */}
 
 									<a href={item.demo} target="_blank" className="card-demo">
 										Демо →
